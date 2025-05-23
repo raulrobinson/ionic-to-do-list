@@ -4,7 +4,15 @@
 
 export const environment = {
   production: false,
-  //firebaseConfig: undefined
+  firebaseConfig: {
+    apiKey: "AI...",
+    authDomain: "to-do-list-...com",
+    projectId: "to-do-list-..",
+    storageBucket: "to-do-list-.....app",
+    messagingSenderId: "...",
+    appId: "1:...:web:...",
+    measurementId: "G-...."
+  },
 };
 
 /*
