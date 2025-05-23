@@ -1,0 +1,7 @@
+{
+  "name": "ChouaibMoNoStandAloneApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
