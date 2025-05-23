@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>My Tasks</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        Logout
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-input placeholder="New task..." [(ngModel)]="newTaskTitle"></ion-input>
+    <ion-button slot="end" (click)="addTask()">Add</ion-button>
+  </ion-item>
+
+  <ion-list *ngIf="tasks$ | async as tasks">
+    <ion-item *ngFor="let task of tasks">
+      <ion-checkbox slot="start" [(ngModel)]="task.completed" (ionChange)="toggle(task)"></ion-checkbox>
+      <ion-label [class.completed]="task.completed">{{ task.title }}</ion-label>
+      <ion-button fill="clear" color="danger" slot="end" (click)="delete(task)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<style>
+  .completed {
+    text-decoration: line-through;
+    color: gray;
+  }
+</style>
