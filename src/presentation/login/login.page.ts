@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -11,8 +11,8 @@ import {
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
-import {FirebaseAuthAdapter} from "../../infrastructure/auth/firebase-auth.adapter";
-import {Router} from "@angular/router";
+import { FirebaseAuthAdapter } from "../../infrastructure/auth/firebase-auth.adapter";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',

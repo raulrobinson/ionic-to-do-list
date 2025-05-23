@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   IonButton,
   IonContent,
@@ -27,7 +27,6 @@ export class RegisterPage {
 
   constructor(
     private auth: AuthUseCase,
-    private fb: FormBuilder,
     private router: Router
   ) {}
 

@@ -22,13 +22,13 @@
       <ion-item *ngFor="let task of tasks$ | async">
         <ion-label position="floating" [ngClass]="{ 'line-through': task.completed }">{{ task.title }}</ion-label>
 
-        <!--<ion-button slot="end" fill="clear" (click)="toggleTask(task)">
+        <ion-button slot="end" fill="clear" (click)="toggleTask(task)">
           {{ task.completed ? 'Deshacer' : 'Completar' }}
         </ion-button>
 
         <ion-button slot="end" fill="clear" color="danger" (click)="deleteTask(task.id!)">
           Eliminar
-        </ion-button>-->
+        </ion-button>
 
       </ion-item>
     </ion-list>
