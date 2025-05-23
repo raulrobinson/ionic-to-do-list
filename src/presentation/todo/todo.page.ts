@@ -42,13 +42,13 @@ export class TodoPage {
     await this.taskAdapter.addTask(task);
   }
 
-  /*async toggleTask(task: Task) {
+  async toggleTask(task: Task) {
     await this.taskUC.updateTask({ ...task, completed: !task.completed });
   }
 
   async deleteTask(id: string) {
     await this.taskUC.deleteTask(id);
-  }*/
+  }
 
   logout() {
     this.auth.logout().then(() => {
