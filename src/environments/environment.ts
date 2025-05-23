@@ -5,14 +5,13 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AI...",
-    authDomain: "to-do-list-...com",
-    projectId: "to-do-list-..",
-    storageBucket: "to-do-list-.....app",
-    messagingSenderId: "...",
-    appId: "1:...:web:...",
-    measurementId: "G-...."
-  },
+    apiKey: "AIzaSyAHhk9ga2cgmyety7enxjDUuCPdHPODimc",
+    authDomain: "instock-app-616f1.firebaseapp.com",
+    projectId: "instock-app-616f1",
+    storageBucket: "instock-app-616f1.firebasestorage.app",
+    messagingSenderId: "1029048116094",
+    appId: "1:1029048116094:web:577b057fd4516f575a492f"
+  }
 };
 
 /*

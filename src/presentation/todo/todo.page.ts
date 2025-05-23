@@ -1,42 +1,54 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { IonicModule } from "@ionic/angular";
-import { FormsModule } from "@angular/forms";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { TaskUseCase } from "../../application/use-cases/task.usecase";
 import { Task } from "../../core/models/task.model";
 import { Router } from "@angular/router";
 import { AuthUseCase } from "../../application/use-cases/auth.usecase";
+import { Observable } from "rxjs";
+import { FirebaseTaskAdapter } from "../../infrastructure/tasks/firebase-task.adapter";
 
 @Component({
   standalone: true,
   selector: 'app-todo',
   templateUrl: './todo.page.html',
-  imports: [CommonModule, IonicModule, FormsModule]
+  imports: [CommonModule, IonicModule, FormsModule, ReactiveFormsModule]
 })
 export class TodoPage {
-  tasks$ = this.taskUseCase.getTasks();
-  newTaskTitle = '';
+  private taskUC = inject(TaskUseCase);
+  form: FormGroup;
+  tasks$: Observable<Task[]>;
+
+  tasks: Task[] = [];
+  newTaskTitle = 'test-1';
 
   constructor(
-    private taskUseCase: TaskUseCase,
+    private fb: FormBuilder,
     private auth: AuthUseCase,
-    private router: Router
-  ) {}
-
-  addTask() {
-    if (!this.newTaskTitle) return;
-    this.taskUseCase.addTask({ title: this.newTaskTitle, completed: false });
-    this.newTaskTitle = '';
+    private router: Router,
+    private taskUseCase: TaskUseCase,
+    private taskAdapter: FirebaseTaskAdapter
+  ) {
+    this.taskUseCase.getTasks().subscribe(tasks => this.tasks = tasks);
+    this.form = this.fb.group({
+      title: ['', Validators.required],
+    });
+    this.tasks$ = this.taskUC.getTasks();
   }
 
-  toggle(task: Task) {
-    task.completed = !task.completed;
-    this.taskUseCase.updateTask(task);
+  async addTask() {
+    const task: Task = { title: this.newTaskTitle, completed: false };
+    await this.taskAdapter.addTask(task);
   }
 
-  delete(task: Task) {
-    if (task.id) this.taskUseCase.deleteTask(task.id);
+  /*async toggleTask(task: Task) {
+    await this.taskUC.updateTask({ ...task, completed: !task.completed });
   }
+
+  async deleteTask(id: string) {
+    await this.taskUC.deleteTask(id);
+  }*/
 
   logout() {
     this.auth.logout().then(() => {

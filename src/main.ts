@@ -7,7 +7,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
-import { environment } from './environments/environment.local';
+import { environment } from './environments/environment';
 import { FirebaseTaskAdapter } from "./infrastructure/tasks/firebase-task.adapter";
 import { FirebaseAuthAdapter } from "./infrastructure/auth/firebase-auth.adapter";
 
