@@ -1,0 +1,84 @@
+<!--<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>tasks</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        Salir
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="addTask()">
+    <ion-item>
+      <ion-input [(ngModel)]="newTask" placeholder="Nueva tarea" name="task"></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit">Agregar</ion-button>
+
+    <ion-list *ngIf="tasks$ | async as tasks">
+      <ion-item-sliding *ngFor="let task of tasks">
+        <ion-item>
+          <ion-checkbox slot="start" [checked]="task.completed" (ionChange)="toggleDone(task)"></ion-checkbox>
+          <ion-label [ngClass]="{ 'line-through': task.completed}">{{ task.title }}</ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="deleteTask(task.id!)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+            <ion-icon slot="icon-only">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="24" width="24">
+                <path fill="currentColor" d="M296 64h-80l-16-16h-64v32h240V48h-64zM112 112h288l-32 336H144L112 112z"/>
+              </svg>
+            </ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </form>
+</ion-content>-->
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Tareas de {{ this.userName }}</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-button fill="clear" [routerLink]="['/categories']">Categorías</ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">Salir</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="addTask()">
+    <ion-item>
+      <ion-input [(ngModel)]="newTask" placeholder="Nueva tarea" name="task"></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit">Agregar</ion-button>
+
+    <ion-list *ngIf="tasks$ | async as tasks">
+      <ion-item-sliding *ngFor="let task of tasks">
+        <ion-item>
+          <!-- Checkbox para marcar la tarea como completada -->
+          <ion-checkbox slot="start" [checked]="task.completed" (ionChange)="toggleDone(task)"></ion-checkbox>
+          <ion-label [ngClass]="{ 'line-through': task.completed }">{{ task.title }}</ion-label>
+
+          <!-- Mostrar botón para editar -->
+          <ion-button slot="end" fill="clear" color="warning" (click)="editTask(task)">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+
+          <!-- Mostrar botón SOLO si está completada -->
+          <ion-button slot="end" fill="clear" color="danger" *ngIf="task.completed" (click)="deleteTask(task.id!)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+  </form>
+</ion-content>
+
+
+
