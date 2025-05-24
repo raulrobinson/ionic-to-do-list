@@ -21,4 +21,8 @@ export class TaskUseCase {
   updateTask(task: Task) {
     return this.taskAdapter.updateTask(task);
   }
+
+  getTasksByCategory(categorySelected: string) {
+    return [];
+  }
 }

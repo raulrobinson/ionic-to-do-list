@@ -15,8 +15,9 @@ export class FirebaseTaskAdapter implements TaskPort {
   }
 
   async addTask(task: Task): Promise<void> {
+    //console.log(`Tarea a agregar: ${task}`);
     await addDoc(this.taskCollection, task).then(() => {
-      console.log('Tarea agregada a Firestore');
+      //console.log(`Tarea agregada a Firestore: ${task}`);
     })
     .catch((error) => {
       console.error('Error al agregar tarea a Firestore:', error);

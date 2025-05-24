@@ -13,6 +13,8 @@ import { FirebaseAuthAdapter } from "./infrastructure/auth/firebase-auth.adapter
 
 import { TASK_PORT } from "./core/ports/task.port";
 import { AUTH_PORT } from "./core/ports/auth.port";
+import { CATEGORY_PORT } from "./core/ports/category.port";
+import { FirebaseCategoryAdapter } from "./infrastructure/tasks/firebase-category.adapter";
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -22,7 +24,8 @@ bootstrapApplication(AppComponent, {
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    { provide: TASK_PORT, useClass: FirebaseTaskAdapter },
     { provide: AUTH_PORT, useClass: FirebaseAuthAdapter },
+    { provide: TASK_PORT, useClass: FirebaseTaskAdapter },
+    { provide: CATEGORY_PORT, useClass: FirebaseCategoryAdapter },
   ],
 });

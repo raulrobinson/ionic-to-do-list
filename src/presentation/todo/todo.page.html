@@ -1,3 +1,68 @@
+<!--<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Mis Tareas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">Salir</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="todo-container">
+
+    <ion-item>
+      <ion-label>Categoría</ion-label>
+      <ion-select [(ngModel)]="categorySelected" (ionChange)="filterTaskByCategory()">
+        <ion-select-option value="">Todas</ion-select-option>
+        <ion-select-option *ngFor="let cat of categories" [value]="cat.id">
+          {{ cat.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <form [formGroup]="form" (ngSubmit)="addTask()">
+      <ion-item>
+        <ion-input placeholder="Nueva tarea" formControlName="title"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Categoría</ion-label>
+        <ion-select formControlName="categoryId">
+          <ion-select-option *ngFor="let cat of categories" [value]="cat.id">
+            {{ cat.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button expand="block" type="submit" [disabled]="form.invalid">Agregar</ion-button>
+    </form>
+
+    <ion-list>
+      <ion-item *ngFor="let task of tasks$ | async">
+        <ion-label class="ion-text-wrap">
+          <h2 [ngClass]="{ 'line-through': task.completed }">{{ task.title }}</h2>
+          <p *ngIf="task.categoryId">
+            Categoría:
+            {{
+              categories.find((cat) => cat.id === task.categoryId)?.name ||
+                'Sin categoría'
+            }}
+          </p>
+        </ion-label>
+
+        <ion-button slot="end" fill="clear" (click)="toggleTask(task)">
+          {{ task.completed ? 'Deshacer' : 'Completar' }}
+        </ion-button>
+
+        <ion-button slot="end" fill="clear" color="danger" (click)="deleteTask(task.id!)">
+          Eliminar
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>-->
+
+
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Mis Tareas</ion-title>
@@ -16,6 +81,15 @@
         <ion-input placeholder="Nueva tarea" formControlName="title"></ion-input>
       </ion-item>
       <ion-button expand="block" type="submit" [disabled]="form.invalid">Agregar</ion-button>
+
+      <ion-item>
+        <ion-label>Category</ion-label>
+        <ion-select formControlName="categoryId">
+          <ion-select-option *ngFor="let cat of categories" [value]="cat.id">
+            {{ cat.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
     </form>
 
     <ion-list>
@@ -32,5 +106,6 @@
 
       </ion-item>
     </ion-list>
+
   </div>
 </ion-content>
