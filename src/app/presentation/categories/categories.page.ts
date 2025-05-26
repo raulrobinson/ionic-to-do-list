@@ -7,11 +7,8 @@ import {
   IonButtons,
   IonContent,
   IonHeader,
-  IonIcon,
   IonInput,
   IonItem,
-  IonItemSliding,
-  IonLabel,
   IonList,
   IonTitle,
   IonToolbar
@@ -36,12 +33,9 @@ import { Router, RouterLink } from "@angular/router";
     FormsModule,
     IonButton,
     IonButtons,
-    IonIcon,
     IonItem,
-    IonItemSliding,
     IonList,
     RouterLink,
-    IonLabel,
     IonInput
   ]
 })
@@ -49,13 +43,13 @@ export class CategoriesPage implements OnInit {
   private auth: Auth = inject(Auth);
   private taskUC = inject(TaskUseCase);
   private categoryUC = inject(CategoryUseCase);
-  private alert = inject(AlertController);
+  private alertCtrl = inject(AlertController);
 
   categories$ = this.categoryUC.getUserCategories();
   userName = this.auth.currentUser?.displayName;
 
   newCategory = '';
-  private categories: Category[] = [];
+  categories: Category[] = [];
 
   constructor(private router: Router) {
     console.log('🚀 TasksPage constructor', this.auth);
@@ -79,7 +73,7 @@ export class CategoriesPage implements OnInit {
   }
 
   async addCategory() {
-    const alert = await this.alert.create({
+    const alertCtrl = await this.alertCtrl.create({
       header: 'Nueva categoría',
       inputs: [{ name: 'name', type: 'text', placeholder: 'Nombre de la categoría' }],
       buttons: [
@@ -103,11 +97,11 @@ export class CategoriesPage implements OnInit {
         }
       ]
     });
-    await alert.present();
+    await alertCtrl.present();
   }
 
   async editCategory(cat: Category) {
-    const alert = await this.alert.create({
+    const alertCtrl = await this.alertCtrl.create({
       header: 'Editar categoría',
       inputs: [{ name: 'name', type: 'text', value: cat.name }],
       buttons: [
@@ -122,7 +116,7 @@ export class CategoriesPage implements OnInit {
         }
       ]
     });
-    await alert.present();
+    await alertCtrl.present();
   }
 
   async deleteCategory(id: string) {
@@ -138,6 +132,37 @@ export class CategoriesPage implements OnInit {
 
   trackById(index: number, item: Category) {
     return item.id;
+  }
+
+  // TODO: [Rev. 2025-05-26_002] Refactor to use reactive forms
+
+  categoryTitle: string = '';
+
+  createCategory() {
+    if (this.categoryTitle.trim()) {
+      this.categoryUC.createCategory(this.categoryTitle).subscribe(() => {
+        this.categoryTitle = '';
+      });
+    }
+  }
+
+  async openEditCategory(cat: Category) {
+    const alertCtrl = await this.alertCtrl.create({
+      header: 'Editar Categoría',
+      inputs: [{ name: 'name', type: 'text', value: cat.name }],
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Guardar',
+          handler: (data) => {
+            if (data.name.trim()) {
+              this.categoryUC.updateCategory(cat.id!, data.name).then();
+            }
+          }
+        }
+      ]
+    });
+    await alertCtrl.present();
   }
 }
 

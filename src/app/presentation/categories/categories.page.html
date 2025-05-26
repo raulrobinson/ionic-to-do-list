@@ -1,9 +1,60 @@
-<ion-header [translucent]="true">
+<!--<ion-header [translucent]="true">
   <ion-toolbar>
-    <!-- [USUARIO] -->
     <ion-title>Categorías de {{ this.userName }}</ion-title>
 
-    <!-- [TITULO] -->
+    <ion-buttons slot="start">
+      <ion-button fill="clear" [routerLink]="['/tasks']">Tareas</ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">Salir</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list *ngIf="categories$ | async as categories">
+    <form (ngSubmit)="addCategory()">
+      <ion-item>
+        <ion-input [(ngModel)]="newCategory" name="category" placeholder="Nueva categoría"></ion-input>
+      </ion-item>
+      <ion-button expand="block" type="submit">Agregar Categoría</ion-button>
+    </form>
+
+    <ion-list *ngIf="categories$ | async as categories">
+      <ion-item-sliding *ngFor="let category of categories">
+        <ion-item>
+          <ion-label>{{ category.name }}</ion-label>
+
+          <ion-button slot="end" fill="clear" color="warning" (click)="editCategory(category)">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button slot="end" fill="clear" color="danger" (click)="deleteCategory(category.id!)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-list>
+</ion-content>-->
+
+<!-- [CATEGORÍAS]
+<ion-item-sliding *ngFor="let category of categories">
+  <ion-item>{{ category.name }}</ion-item>
+  <ion-item-options>
+    <ion-item-option color="warning" (click)="editCategory(category)">
+      <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+    </ion-item-option>
+    <ion-item-option color="danger" (click)="deleteCategory(category.id!)">
+      <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+    </ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>-->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Categorías</ion-title>
     <ion-buttons slot="start">
       <ion-button fill="clear" [routerLink]="['/tasks']">Tareas</ion-button>
     </ion-buttons>
@@ -15,46 +66,21 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-list *ngIf="categories$ | async as categories">
-    <!-- [AGREGAR CATEGORIA] -->
-    <form (ngSubmit)="addCategory()">
-      <ion-item>
-        <ion-input [(ngModel)]="newCategory" name="category" placeholder="Nueva categoría"></ion-input>
-      </ion-item>
-      <ion-button expand="block" type="submit">Agregar Categoría</ion-button>
-    </form>
+<ion-content>
+  <form (ngSubmit)="createCategory()">
+    <ion-item>
+      <ion-input placeholder="Título de la Categoria" [(ngModel)]="categoryTitle" name="categoryTitle" required></ion-input>
+    </ion-item>
+    <ion-button expand="full" type="submit">Agregar Categoria</ion-button>
+  </form>
 
-    <!-- Lista de categorías -->
-    <ion-list *ngIf="categories$ | async as categories">
-      <ion-item-sliding *ngFor="let category of categories">
-        <ion-item>
-          <ion-label>{{ category.name }}</ion-label>
-
-          <!-- Botón editar -->
-          <ion-button slot="end" fill="clear" color="warning" (click)="editCategory(category)">
-            <ion-icon name="create-outline"></ion-icon>
-          </ion-button>
-
-          <!-- Botón eliminar -->
-          <ion-button slot="end" fill="clear" color="danger" (click)="deleteCategory(category.id!)">
-            <ion-icon name="trash-outline"></ion-icon>
-          </ion-button>
-        </ion-item>
-      </ion-item-sliding>
-    </ion-list>
-
-    <!-- [CATEGORÍAS]
-    <ion-item-sliding *ngFor="let category of categories">
-      <ion-item>{{ category.name }}</ion-item>
-      <ion-item-options>
-        <ion-item-option color="warning" (click)="editCategory(category)">
-          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="danger" (click)="deleteCategory(category.id!)">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>-->
+  <ion-list>
+    <ion-item *ngFor="let cat of categories">
+      {{ cat.name }}
+      <ion-buttons slot="end">
+        <ion-button (click)="openEditCategory(cat)">Editar</ion-button>
+        <ion-button color="danger" (click)="deleteCategory(cat.id!)">Eliminar</ion-button>
+      </ion-buttons>
+    </ion-item>
   </ion-list>
 </ion-content>

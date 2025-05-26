@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
-  IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle,
+  IonButton,
   IonContent,
-  IonHeader, IonIcon,
+  IonHeader,
   IonInput,
   IonItem,
   IonLabel,
@@ -20,7 +20,7 @@ import { FirebaseAuthAdapter } from "../../infrastructure/auth/firebase-auth.ada
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, IonItem, IonLabel, IonInput, IonText, IonButton, RouterLink, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, IonItem, IonLabel, IonInput, IonText, IonButton, RouterLink]
 })
 export class LoginPage {
   form: FormGroup;
