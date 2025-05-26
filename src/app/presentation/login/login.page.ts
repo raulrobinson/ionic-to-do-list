@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
-  IonButton,
+  IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle,
   IonContent,
-  IonHeader,
+  IonHeader, IonIcon,
   IonInput,
   IonItem,
   IonLabel,
@@ -20,7 +20,7 @@ import { FirebaseAuthAdapter } from "../../infrastructure/auth/firebase-auth.ada
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, IonItem, IonLabel, IonInput, IonText, IonButton, RouterLink]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, IonItem, IonLabel, IonInput, IonText, IonButton, RouterLink, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon]
 })
 export class LoginPage {
   form: FormGroup;
@@ -35,6 +35,11 @@ export class LoginPage {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+  }
+
+  // Se ejecuta cada vez que entras a la página
+  ionViewWillEnter() {
+    this.form.reset();
   }
 
   async login() {

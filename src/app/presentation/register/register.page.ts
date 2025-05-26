@@ -58,4 +58,9 @@ export class RegisterPage {
     this.router.navigateByUrl('/login');
   }
 
+  // Se ejecuta cada vez que entras a la página
+  ionViewWillEnter() {
+    this.form.reset();
+  }
+
 }

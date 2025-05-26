@@ -7,26 +7,63 @@
 <ion-content class="ion-padding">
   <form [formGroup]="form" (ngSubmit)="login()">
 
-    <!-- [E-MAIL] -->
     <ion-item>
       <ion-label position="floating">E-mail</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
 
-    <!-- [PASSWORD] -->
     <ion-item>
       <ion-label position="floating">Contraseña</ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
     </ion-item>
 
-    <!-- [ERROR] -->
     <ion-text color="danger" *ngIf="error">
       <p>{{ error }}</p>
     </ion-text>
 
-    <!-- [BUTTON] -->
     <ion-button expand="full" type="submit" [disabled]="form.invalid">Ingresar</ion-button>
     <ion-button fill="clear" [routerLink]="['/register']">No tienes cuenta? Registrate</ion-button>
 
   </form>
 </ion-content>
+
+<!-- Uncomment the following code if you want to use a card layout for the login page -->
+<!--<ion-content fullscreen="true" class="login-content">
+  <div class="login-wrapper">
+    <ion-card class="login-card">
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">Iniciar Sesión</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="form" (ngSubmit)="login()">
+          <ion-item lines="none">
+            <ion-icon slot="start" name="mail-outline"></ion-icon>
+            <ion-input
+              type="email"
+              placeholder="Correo electrónico"
+              formControlName="email">
+            </ion-input>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+            <ion-input
+              type="password"
+              placeholder="Contraseña"
+              formControlName="password">
+            </ion-input>
+          </ion-item>
+
+          <ion-button expand="block" type="submit" class="login-button">Entrar</ion-button>
+        </form>
+
+        <div class="register-text">
+          <span>¿No tienes cuenta?</span>
+          <a routerLink="/register">Regístrate</a>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>-->
+
